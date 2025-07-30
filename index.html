@@ -3,73 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pump Billing</title>
+  <title>Billing Form</title>
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f2f2f2;
-      padding: 50px;
     }
-    .info-card {
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: inline-block;
-    }
-    .info-card h2, .info-card h3 {
-      margin: 10px 0;
-    }
-    .info-card button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      background-color: #28a745;
+    .header {
+      background: linear-gradient(to right, #6a11cb, #2575fc);
       color: white;
-      border-radius: 8px;
-      cursor: pointer;
+      padding: 20px;
+      text-align: center;
     }
-    .info-card button:hover {
-      background-color: #218838;
+    .header h2, .header h3 {
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
-  <div class="info-card">
+  <div class="header">
     <h2 id="pumpIDDisplay">Pump ID: </h2>
     <h3 id="roNameDisplay">RO Name: </h3>
-    <button id="openFormBtn">Start Billing</button>
   </div>
 
   <script>
-    // Replace with your actual Google Form URL
+    // Google Form details
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfUuCz-42LYA5vc6BBb2DkLindmSsDM75GlxS4qF1dwewFNFQ/viewform";
+    const entryPumpID = "entry.63998760";   // replace with actual
+    const entryROName = "entry.495933067";  // replace with actual
 
-    // Replace these with your actual entry IDs from the form
-    const entryPumpID = "entry.63998760";
-    const entryROName = "entry.495933067";
-
-    // Get parameters from URL
+    // Extract values from URL
     const params = new URLSearchParams(window.location.search);
-    const pump = params.get("pump") || "N/A";
-    const ro = params.get("ro") || "N/A";
+    const pump = params.get("pump") || "Not Available";
+    const ro = params.get("ro") || "Not Available";
 
-    // Display values
+    // Show in header
     document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
     document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
 
-    // Build prefilled form URL
-    const prefillParams = new URLSearchParams();
-    prefillParams.set(entryPumpID, pump);
-    prefillParams.set(entryROName, ro);
-    const fullFormURL = `${baseGoogleFormURL}?${prefillParams.toString()}`;
+    // Create prefilled form URL
+    const formParams = new URLSearchParams();
+    formParams.set(entryPumpID, pump);
+    formParams.set(entryROName, ro);
+    const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
 
-    // Open form in new tab
-    document.getElementById("openFormBtn").addEventListener("click", () => {
-      window.open(fullFormURL, "_blank");
-    });
+    // Create and insert the form iframe dynamically
+    const iframe = document.createElement('iframe');
+    iframe.src = fullFormURL;
+    iframe.width = "100%";
+    iframe.height = window.innerHeight - document.querySelector('.header').offsetHeight + "px";
+    iframe.style.border = "none";
+    document.body.appendChild(iframe);
   </script>
 </body>
 </html>
