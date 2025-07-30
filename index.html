@@ -2,93 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Pump Billing Form</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pump Billing</title>
   <style>
-    /* Reset and base */
-    body, html {
-      height: 100%;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #fff; /* white background for page */
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      overflow: hidden; /* prevent scroll */
-    }
-
-    /* Header with orange gradient */
-    .info-card {
-      background: linear-gradient(135deg, #7b2ff7 0%, #ffffff 100%);
-      padding: 20px 0;
+    body {
+      font-family: Arial, sans-serif;
       text-align: center;
-      color: white;
-      font-weight: 600;
-      flex-shrink: 0;
-      /* Fixed height for header */
-      height: 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      margin: 0 20px;
+      background-color: #f2f2f2;
+      padding: 50px;
+    }
+    .info-card {
+      background-color: #ffffff;
       border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: inline-block;
     }
-
     .info-card h2, .info-card h3 {
-      margin: 0;
-      line-height: 1.2;
+      margin: 10px 0;
     }
-
-    /* Google Form iframe fills remaining space */
-    iframe#googleForm {
-      flex-grow: 1;
-      width: 100vw;
+    .info-card button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
       border: none;
-      background: white;
-      /* Remove border radius and shadow for clean full area */
-      border-radius: 0;
-      box-shadow: none;
-      height: auto; /* overridden by flex-grow */
-      min-height: 0; /* fixes some flexbox bugs in browsers */
+      background-color: #28a745;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .info-card button:hover {
+      background-color: #218838;
     }
   </style>
 </head>
 <body>
-
-  <div class="info-card" aria-label="Pump and RO Information">
+  <div class="info-card">
     <h2 id="pumpIDDisplay">Pump ID: </h2>
     <h3 id="roNameDisplay">RO Name: </h3>
+    <button id="openFormBtn">Start Billing</button>
   </div>
 
-  <iframe id="googleForm" src="" title="Pump Billing Google Form"></iframe>
-
   <script>
-    // Google Form base URL (without prefill parameters)
+    // Replace with your actual Google Form URL
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfUuCz-42LYA5vc6BBb2DkLindmSsDM75GlxS4qF1dwewFNFQ/viewform";
 
-    // Entry IDs from Google Form for Pump ID and RO Name
-    const entryPumpID = "entry.63998760";  // Pump ID field
-    const entryROName = "entry.495933067"; // RO Name field
+    // Replace these with your actual entry IDs from the form
+    const entryPumpID = "entry.63998760";
+    const entryROName = "entry.495933067";
 
-    // Get pump and ro values from URL parameters
+    // Get parameters from URL
     const params = new URLSearchParams(window.location.search);
     const pump = params.get("pump") || "N/A";
     const ro = params.get("ro") || "N/A";
 
-    // Show Pump ID and RO Name on the page
+    // Display values
     document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
     document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
 
-    // Build Google Form prefill URL with Pump ID and RO Name
+    // Build prefilled form URL
     const prefillParams = new URLSearchParams();
     prefillParams.set(entryPumpID, pump);
     prefillParams.set(entryROName, ro);
+    const fullFormURL = `${baseGoogleFormURL}?${prefillParams.toString()}`;
 
-    // Set iframe src to the prefilled Google Form
-    const formURL = `${baseGoogleFormURL}?${prefillParams.toString()}`;
-    document.getElementById("googleForm").src = formURL;
+    // Open form in new tab
+    document.getElementById("openFormBtn").addEventListener("click", () => {
+      window.open(fullFormURL, "_blank");
+    });
   </script>
-
 </body>
 </html>
