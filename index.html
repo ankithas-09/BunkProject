@@ -5,59 +5,50 @@
   <title>Pump Billing Form</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* Background gradient */
+    /* Reset and base */
     body, html {
       height: 100%;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      background: #fff; /* white background for page */
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 20px;
       box-sizing: border-box;
+      overflow: hidden; /* prevent scroll */
     }
 
-    /* Card container for Pump ID and RO Name */
+    /* Header with orange gradient */
     .info-card {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-    margin-bottom: 30px;
-  }
+      background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      flex-shrink: 0;
+      /* Fixed height for header */
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
 
     .info-card h2, .info-card h3 {
-      margin: 0 0 10px 0;
-      color: #222;
-      font-weight: 600;
+      margin: 0;
+      line-height: 1.2;
     }
 
-    /* Google Form iframe styling */
+    /* Google Form iframe fills remaining space */
     iframe#googleForm {
-    position: fixed;      /* Fix it to viewport */
-    top: 0;
-    left: 0;
-    width: 100vw;         /* Full viewport width */
-    height: 100vh;        /* Full viewport height */
-    border: none;
-    border-radius: 0;     /* Remove rounded corners for full screen */
-    box-shadow: none;     /* Remove shadow for clean look */
-    background: white;
-    z-index: 999;         /* Make sure it’s on top */
-  }
-
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      .info-card {
-        padding: 25px 20px;
-      }
-      iframe#googleForm {
-        height: 70vh;
-      }
+      flex-grow: 1;
+      width: 100vw;
+      border: none;
+      background: white;
+      /* Remove border radius and shadow for clean full area */
+      border-radius: 0;
+      box-shadow: none;
+      height: auto; /* overridden by flex-grow */
+      min-height: 0; /* fixes some flexbox bugs in browsers */
     }
   </style>
 </head>
@@ -71,10 +62,10 @@
   <iframe id="googleForm" src="" title="Pump Billing Google Form"></iframe>
 
   <script>
-    // Your Google Form base URL (without prefill parameters)
+    // Google Form base URL (without prefill parameters)
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfUuCz-42LYA5vc6BBb2DkLindmSsDM75GlxS4qF1dwewFNFQ/viewform";
 
-    // Entry IDs from your Google Form for Pump ID and RO Name
+    // Entry IDs from Google Form for Pump ID and RO Name
     const entryPumpID = "entry.63998760";  // Pump ID field
     const entryROName = "entry.495933067"; // RO Name field
 
@@ -98,5 +89,4 @@
   </script>
 
 </body>
-
 </html>
