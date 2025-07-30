@@ -3,57 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Billing Form</title>
+  <title>Redirecting to Form...</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-    }
-    .header {
       background: linear-gradient(to right, #6a11cb, #2575fc);
       color: white;
-      padding: 20px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
     }
-    .header h2, .header h3 {
+    h2, h3 {
       margin: 10px 0;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h2 id="pumpIDDisplay">Pump ID: </h2>
-    <h3 id="roNameDisplay">RO Name: </h3>
-  </div>
+  <h2 id="pumpIDDisplay">Pump ID: ...</h2>
+  <h3 id="roNameDisplay">RO Name: ...</h3>
+  <p>Redirecting to form...</p>
 
   <script>
-    // Google Form details
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfUuCz-42LYA5vc6BBb2DkLindmSsDM75GlxS4qF1dwewFNFQ/viewform";
     const entryPumpID = "entry.63998760";   // replace with actual
     const entryROName = "entry.495933067";  // replace with actual
 
-    // Extract values from URL
     const params = new URLSearchParams(window.location.search);
     const pump = params.get("pump") || "Not Available";
     const ro = params.get("ro") || "Not Available";
 
-    // Show in header
     document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
     document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
 
-    // Create prefilled form URL
     const formParams = new URLSearchParams();
     formParams.set(entryPumpID, pump);
     formParams.set(entryROName, ro);
     const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
 
-    // Create and insert the form iframe dynamically
-    const iframe = document.createElement('iframe');
-    iframe.src = fullFormURL;
-    iframe.width = "100%";
-    iframe.height = window.innerHeight - document.querySelector('.header').offsetHeight + "px";
-    iframe.style.border = "none";
-    document.body.appendChild(iframe);
+    // Redirect after a short delay so header is visible for a moment
+    setTimeout(() => {
+      window.location.href = fullFormURL;
+    }, 2000); // 2-second delay
   </script>
 </body>
 </html>
