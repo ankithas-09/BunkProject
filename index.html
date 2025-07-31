@@ -3,55 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BPCL Form</title>
+  <title>Redirecting to Form...</title>
   <style>
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
+      color: white;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: url('BPCL.png') repeat-x center center; /* Repeats horizontally */
-      background-size: 200px auto; /* Adjust logo size */
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    iframe {
-      width: 90%;
-      height: 95vh;
-      border: none;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    /* Full-screen blurred background */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('BPCL.png') no-repeat center center;
+      background-size: contain; /* Fill the screen without repeat */
+      filter: blur(4px);       /* Apply blur */
+      transform: scale(1.1);   /* Slight zoom to hide blur edges */
+      z-index: -2;
+    }
+
+    /* Dark overlay for better readability */
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55); /* Semi-transparent overlay */
+      z-index: -1;
+    }
+
+    /* Glass-like content card */
+    .content {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 25px 35px;         /* Reduced padding */
+      border-radius: 15px;        /* Slightly smaller rounded corners */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      animation: fadeIn 1.5s ease-in-out;
+      max-width: 450px;           /* Smaller width */
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h2, h3, p {
+      margin: 10px 0;
+      font-weight: 500;
+    }
+
+    h2, h3 {
+      color: #ffd369; /* Highlighted golden tone */
+      text-shadow: 0 0 10px rgba(255, 211, 105, 0.8);
+    }
+
+    p {
+      font-size: 1.1em;
+      color: #ffffffcc;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <iframe id="googleFormFrame"></iframe>
+  <div class="content">
+    <h1>🎇 Fuel the Festive Spirit with BPCL's Dasara Bonanza! 🎭</h1>
+    <h2 id="pumpIDDisplay">Pump ID: ...</h2>
+    <h3 id="roNameDisplay">RO Name: ...</h3>
+    <p>Redirecting to form...</p>
+  </div>
 
   <script>
-    // Base Google Form URL
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
-
-    // Google Form entry fields
     const entryPumpID = "entry.2110774077";
     const entryROName = "entry.1278410825";
 
-    // Get parameters from URL
     const params = new URLSearchParams(window.location.search);
     const pump = params.get("pump") || "Not Available";
     const ro = params.get("ro") || "Not Available";
 
-    // Build form URL with pre-filled entries
+    document.getElementById("pumpIDDisplay").textContent = Pump ID: ${pump};
+    document.getElementById("roNameDisplay").textContent = RO Name: ${ro};
+
     const formParams = new URLSearchParams();
     formParams.set(entryPumpID, pump);
     formParams.set(entryROName, ro);
+    const fullFormURL = ${baseGoogleFormURL}?${formParams.toString()};
 
-    const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
-
-    // Set iframe source to the Google Form
-    document.getElementById("googleFormFrame").src = fullFormURL;
+    setTimeout(() => {
+      window.location.href = fullFormURL;
+    }, 3000);
   </script>
 </body>
 </html>
