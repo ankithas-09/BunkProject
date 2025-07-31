@@ -5,27 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Redirecting to Form...</title>
   <style>
+    /* Reset & Base */
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
+      font-family: "Segoe UI", Arial, sans-serif;
       color: white;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    h2, h3 {
+
+    /* Full-screen blurred background */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('BPCL.png') no-repeat center center;
+      background-size: contain; /* Fill the screen without repeat */
+      filter: blur(8px);       /* Apply blur */
+      transform: scale(1.1);   /* Slight zoom to hide blur edges */
+      z-index: -2;
+    }
+
+    /* Gradient overlay for better readability */
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45); /* Dark overlay */
+      z-index: -1;
+    }
+
+    /* Center Card */
+    .content-box {
+      background: rgba(255, 255, 255, 0.12); /* semi-transparent */
+      backdrop-filter: blur(15px);           /* glass effect */
+      border-radius: 20px;
+      padding: 40px 50px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 90%;
+      animation: fadeIn 1s ease-out;
+    }
+
+    h2 {
+      font-size: 28px;
       margin: 10px 0;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin: 10px 0;
+      opacity: 0.9;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 16px;
+      opacity: 0.8;
+    }
+
+    /* Subtle animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <h2 id="pumpIDDisplay">Pump ID: ...</h2>
-  <h3 id="roNameDisplay">RO Name: ...</h3>
-  <p>Redirecting to form...</p>
+  <div class="content-box">
+    <h2 id="pumpIDDisplay">Pump ID: ...</h2>
+    <h3 id="roNameDisplay">RO Name: ...</h3>
+    <p>Redirecting to form...</p>
+  </div>
 
   <script>
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
@@ -44,10 +106,10 @@
     formParams.set(entryROName, ro);
     const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
 
-    // Redirect after a short delay so header is visible for a moment
+    // Redirect after 2 seconds
     setTimeout(() => {
       window.location.href = fullFormURL;
-    }, 2000); // 2-second delay
+    }, 2000);
   </script>
 </body>
 </html>
