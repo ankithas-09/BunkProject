@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Redirecting to Form...</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    h2, h3 {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="pumpIDDisplay">Pump ID: ...</h2>
+  <h3 id="roNameDisplay">RO Name: ...</h3>
+  <p>Redirecting to form...</p>
+
+  <script>
+    const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
+    const entryPumpID = "entry.2110774077";   // replace with actual
+    const entryROName = "entry.1278410825";  // replace with actual
+
+    const params = new URLSearchParams(window.location.search);
+    const pump = params.get("pump") || "Not Available";
+    const ro = params.get("ro") || "Not Available";
+
+    document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
+    document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
+
+    const formParams = new URLSearchParams();
+    formParams.set(entryPumpID, pump);
+    formParams.set(entryROName, ro);
+    const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
+
+    // Redirect after a short delay so header is visible for a moment
+    setTimeout(() => {
+      window.location.href = fullFormURL;
+    }, 2000); // 2-second delay
+  </script>
+</body>
+</html>
