@@ -7,15 +7,10 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-image: url('BPCL.png'); /* Local image */
-      background-repeat: repeat;
-      background-size: 200px 200px; /* Adjust the grid size */
-      background-position: center;
+      font-family: "Segoe UI", Arial, sans-serif;
       color: white;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -23,7 +18,7 @@
       overflow: hidden;
     }
 
-    /* Semi-opaque background effect */
+    /* Full-screen blurred background */
     body::before {
       content: "";
       position: absolute;
@@ -31,34 +26,71 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('BPCL.png');
-      background-repeat: repeat;
-      background-size: 200px 200px;
-      background-position: center;
-      opacity: 0.3; /* Adjust transparency */
+      background: url('BPCL.png') no-repeat center center;
+      background-size: cover; /* Fill the screen without repeat */
+      filter: blur(8px);       /* Apply blur */
+      transform: scale(1.1);   /* Slight zoom to hide blur edges */
+      z-index: -2;
+    }
+
+    /* Dark overlay for better readability */
+    body::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55); /* Semi-transparent overlay */
       z-index: -1;
     }
 
-    h1 {
-      font-size: 2em;
-      margin: 10px 0;
-      background-color: rgba(0, 0, 0, 0.5); /* adds readability */
-      padding: 10px;
-      border-radius: 8px;
+    /* Glass-like content card */
+    .content {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+      animation: fadeIn 1.5s ease-in-out;
+      max-width: 600px;
     }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(0,0,0,0.5);
+    }
+
     h2, h3, p {
       margin: 10px 0;
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 8px;
-      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    h2, h3 {
+      color: #ffd369; /* Highlighted golden tone */
+      text-shadow: 0 0 10px rgba(255, 211, 105, 0.8);
+    }
+
+    p {
+      font-size: 1.1em;
+      color: #ffffffcc;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <h1>🎇 Fuel the Festive Spirit with BPCL's Dasara Bonanza! 🎭</h1>
-  <h2 id="pumpIDDisplay">Pump ID: ...</h2>
-  <h3 id="roNameDisplay">RO Name: ...</h3>
-  <p>Redirecting to form...</p>
+  <div class="content">
+    <h1>🎇 Fuel the Festive Spirit with BPCL's Dasara Bonanza! 🎭</h1>
+    <h2 id="pumpIDDisplay">Pump ID: ...</h2>
+    <h3 id="roNameDisplay">RO Name: ...</h3>
+    <p>Redirecting to form...</p>
+  </div>
 
   <script>
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
