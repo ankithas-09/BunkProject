@@ -11,7 +11,7 @@ os.makedirs(output_folder, exist_ok=True)
 df = pd.read_excel('pumps.xlsx')
 
 # Base URL of your hosted form
-base_url = "https://luckydraw-pied.vercel.app/"
+base_url = "https://lucky-draw-beta.vercel.app/"
 
 for _, row in df.iterrows():
     pump_id = str(row['pumpID']).strip()
