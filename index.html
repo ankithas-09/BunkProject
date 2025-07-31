@@ -6,9 +6,12 @@
   <title>Redirecting to Form...</title>
   <style>
     body {
-      margin: 10;
+      margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
+      background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FBharat_Petroleum&psig=AOvVaw0OSYXqifphv0O-Ljf4uPpk&ust=1754049626926000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLCm1JmG544DFQAAAAAdAAAAABAE'); /* Replace with correct image path */
+      background-repeat: repeat;
+      background-size: 200px 200px; /* Adjust the grid size */
+      background-position: center;
       color: white;
       height: 100vh;
       display: flex;
@@ -17,22 +20,31 @@
       align-items: center;
       text-align: center;
     }
-    h2, h3 {
+    h1 {
+      font-size: 2em;
       margin: 10px 0;
+      background-color: rgba(0, 0, 0, 0.5); /* adds readability */
+      padding: 10px;
+      border-radius: 8px;
+    }
+    h2, h3, p {
+      margin: 10px 0;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 8px;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
-  <body>
-  <h1 style="margin: 10px 0; font-size: 2em;">🎇 Fuel the Festive Spirit with BPCL's Dasara Bonanza! 🎇</h1>
+  <h1>🎇 Fuel the Festive Spirit with BPCL's Dasara Bonanza! 🎭</h1>
   <h2 id="pumpIDDisplay">Pump ID: ...</h2>
   <h3 id="roNameDisplay">RO Name: ...</h3>
   <p>Redirecting to form...</p>
 
   <script>
     const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
-    const entryPumpID = "entry.2110774077";   // replace with actual
-    const entryROName = "entry.1278410825";  // replace with actual
+    const entryPumpID = "entry.2110774077";
+    const entryROName = "entry.1278410825";
 
     const params = new URLSearchParams(window.location.search);
     const pump = params.get("pump") || "Not Available";
@@ -46,10 +58,9 @@
     formParams.set(entryROName, ro);
     const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
 
-    // Redirect after a short delay so header is visible for a moment
     setTimeout(() => {
       window.location.href = fullFormURL;
-    }, 3000); // 3-second delay
+    }, 3000);
   </script>
 </body>
 </html>
