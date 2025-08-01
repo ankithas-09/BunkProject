@@ -28,9 +28,9 @@
       width: 100%;
       height: 100%;
       background: url('BPCL.png') no-repeat center center;
-      background-size: contain; 
-      filter: blur(4px);
-      transform: scale(1.1); 
+      background-size: contain; /* Fill the screen without repeat */
+      filter: blur(4px);       /* Apply blur */
+      transform: scale(1.1);   /* Slight zoom to hide blur edges */
       z-index: -2;
     }
 
@@ -42,14 +42,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.45); /* Dark overlay */
       z-index: -1;
     }
 
     /* Center Card */
     .content-box {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.12); /* semi-transparent */
+      backdrop-filter: blur(15px);           /* glass effect */
       border-radius: 20px;
       padding: 40px 50px;
       box-shadow: 0 0 25px rgba(0,0,0,0.3);
@@ -91,39 +91,26 @@
   </div>
 
   <script>
-    // Google Form settings
-    const formID = "1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q"; 
-    const formAction = `https://docs.google.com/forms/d/e/${formID}/formResponse`;
-    const formViewURL = `https://docs.google.com/forms/d/e/${formID}/viewform`;
+    const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
+    const entryPumpID = "entry.2110774077";   // replace with actual
+    const entryROName = "entry.1278410825";  // replace with actual
 
-    const entryPumpID = "entry.2110774077";   
-    const entryROName = "entry.1278410825";  
-
-    // Get URL params
     const params = new URLSearchParams(window.location.search);
     const pump = params.get("pump") || "Not Available";
     const ro = params.get("ro") || "Not Available";
 
-    // Update display text
-    document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
-    document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
+    document.getElementById("pumpIDDisplay").textContent = Pump ID: ${pump};
+    document.getElementById("roNameDisplay").textContent = RO Name: ${ro};
 
-    // Prepare form data for hidden submission
-    const formData = new FormData();
-    formData.append(entryPumpID, pump);
-    formData.append(entryROName, ro);
+    const formParams = new URLSearchParams();
+    formParams.set(entryPumpID, pump);
+    formParams.set(entryROName, ro);
+    const fullFormURL = ${baseGoogleFormURL}?${formParams.toString()};
 
-    // Submit to formResponse and then redirect
-    fetch(formAction, {
-      method: "POST",
-      body: formData,
-      mode: "no-cors"
-    }).then(() => {
-      // Redirect to default thank-you page
-      setTimeout(() => {
-        window.location.href = formViewURL + "?submit=Submit";
-      }, 2000);
-    });
+    // Redirect after 2 seconds
+    setTimeout(() => {
+      window.location.href = fullFormURL;
+    }, 3000);
   </script>
 </body>
 </html>
