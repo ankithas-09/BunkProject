@@ -28,9 +28,9 @@
       width: 100%;
       height: 100%;
       background: url('BPCL.png') no-repeat center center;
-      background-size: contain; /* Fill the screen without repeat */
-      filter: blur(4px);       /* Apply blur */
-      transform: scale(1.1);   /* Slight zoom to hide blur edges */
+      background-size: contain; 
+      filter: blur(4px);       
+      transform: scale(1.1);   
       z-index: -2;
     }
 
@@ -42,14 +42,14 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.45); /* Dark overlay */
+      background: rgba(0, 0, 0, 0.45);
       z-index: -1;
     }
 
     /* Center Card */
     .content-box {
-      background: rgba(255, 255, 255, 0.12); /* semi-transparent */
-      backdrop-filter: blur(15px);           /* glass effect */
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
       border-radius: 20px;
       padding: 40px 50px;
       box-shadow: 0 0 25px rgba(0,0,0,0.3);
@@ -75,7 +75,6 @@
       opacity: 0.8;
     }
 
-    /* Subtle animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -84,33 +83,42 @@
 </head>
 <body>
   <div class="content-box">
-    <h1 style="margin: 10px 0; font-size: 2em;">🎉GRAND DASARA FUEL FESTIVAL🎊</h1>
+    <h1 style="margin: 10px 0; font-size: 2em;">🎉 GRAND DASARA FUEL FESTIVAL 🎊</h1>
     <h2 id="pumpIDDisplay">Pump ID: ...</h2>
-    <h3 id="roNameDisplay">Pump Name: ...</h3>
+    <h3 id="roNameDisplay">RO Name: ...</h3>
     <p>Redirecting to form...</p>
   </div>
 
   <script>
-  const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
-  const entryPumpID = "entry.242181097";   // replace with actual
-  const entryROName = "entry.951332432";  // replace with actual
+    // Google Form Setup
+    const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/formResponse"; 
+    const entryPumpID = "entry.242181097";  // actual hidden field ID for Pump ID
+    const entryROName = "entry.951332432";  // actual hidden field ID for RO Name
 
-  const params = new URLSearchParams(window.location.search);
-  const pump = params.get("pump") || "Not Available";
-  const ro = params.get("ro") || "Not Available";
+    // Capture URL Parameters
+    const params = new URLSearchParams(window.location.search);
+    const pump = params.get("pump") || "Not Available";
+    const ro = params.get("ro") || "Not Available";
 
-  document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
-  document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
+    // Display on page
+    document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
+    document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
 
-  const formParams = new URLSearchParams();
-  formParams.set(entryPumpID, pump);
-  formParams.set(entryROName, ro);
-  const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
+    // Submit hidden data silently using fetch
+    const formData = new FormData();
+    formData.append(entryPumpID, pump);
+    formData.append(entryROName, ro);
 
-  // Redirect after 3 seconds
-  setTimeout(() => {
-    window.location.href = fullFormURL;
-  }, 3000);
-</script>
+    fetch(baseGoogleFormURL, {
+      method: "POST",
+      body: formData,
+      mode: "no-cors"
+    }).then(() => {
+      // Redirect to the visible Google Form (if users still need to fill other fields)
+      setTimeout(() => {
+        window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
+      }, 3000);
+    });
+  </script>
 </body>
 </html>
