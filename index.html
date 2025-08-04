@@ -27,7 +27,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('BPCL.png') no-repeat center center;
+      background: url('GDFF.png') no-repeat center center;
       background-size: contain; /* Fill the screen without repeat */
       filter: blur(4px);       /* Apply blur */
       transform: scale(1.1);   /* Slight zoom to hide blur edges */
@@ -92,7 +92,6 @@
 
   <script>
   const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
-  const entryPumpID = "entry.242181097";   // Replace with actual
   const entryROName = "entry.951332432";   // Replace with actual
 
   // Extract pump and ro from QR code link
@@ -101,7 +100,6 @@
   const ro = params.get("ro") || "";
 
   // Display for 3 seconds
-  document.getElementById("pumpIDDisplay").textContent = `Pump ID: ${pump}`;
   document.getElementById("roNameDisplay").textContent = `RO Name: ${ro}`;
 
   // Construct pre-filled Google Form link
