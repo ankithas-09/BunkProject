@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Redirecting to Form...</title>
   <style>
-    /* Reset & Base */
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
       color: white;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -19,7 +19,7 @@
       overflow: hidden;
     }
 
-    /* Full-screen blurred background */
+    /* Background Blurred Image */
     body::before {
       content: "";
       position: absolute;
@@ -28,13 +28,13 @@
       width: 100%;
       height: 100%;
       background: url('GDFF.jpg') no-repeat center center;
-      background-size: contain; /* Fill the screen without repeat */
-      filter: blur(4px);       /* Apply blur */
-      transform: scale(1.1);   /* Slight zoom to hide blur edges */
+      background-size: contain;
+      filter: blur(4px);
+      transform: scale(1.1);
       z-index: -2;
     }
 
-    /* Gradient overlay for better readability */
+    /* Gradient overlay */
     body::after {
       content: "";
       position: absolute;
@@ -42,31 +42,36 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.45); /* Dark overlay */
+      background: rgba(0, 0, 0, 0.45);
       z-index: -1;
     }
 
-    /* Center Card */
+    /* Top clear image section */
+    .top-image {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      z-index: 1;
+      margin-top: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
     .content-box {
-      background: rgba(255, 255, 255, 0.12); /* semi-transparent */
-      backdrop-filter: blur(15px);           /* glass effect */
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
       border-radius: 20px;
       padding: 40px 50px;
       box-shadow: 0 0 25px rgba(0,0,0,0.3);
       max-width: 400px;
       width: 90%;
       animation: fadeIn 1s ease-out;
+      margin-top: 30px;
     }
 
     h2 {
       font-size: 28px;
       margin: 10px 0;
-    }
-
-    h3 {
-      font-size: 20px;
-      margin: 10px 0;
-      opacity: 0.9;
     }
 
     p {
@@ -75,7 +80,6 @@
       opacity: 0.8;
     }
 
-    /* Subtle animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -83,6 +87,10 @@
   </style>
 </head>
 <body>
+
+  <!-- Sharp GDFF Image on Top -->
+  <img src="GDFF.jpg" alt="Grand Dasara Banner" class="top-image">
+
   <div class="content-box">
     <h1 style="margin: 10px 0; font-size: 2em;">🎉GRAND DASARA FUEL FESTIVAL🎊</h1>
     <h2 id="roNameDisplay">Pump Name: ...</h2>
@@ -90,29 +98,25 @@
   </div>
 
   <script>
-  const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
-  const entryPumpID = "entry.242181097";   // Replace with actual
-  const entryROName = "entry.951332432";   // Replace with actual
+    const baseGoogleFormURL = "https://docs.google.com/forms/d/e/1FAIpQLSfkvHEVv88ddxazgt2m-450f-D57CISiSw_yN8IH5STtCcR0Q/viewform";
+    const entryPumpID = "entry.242181097";
+    const entryROName = "entry.951332432";
 
-  // Extract pump and ro from QR code link
-  const params = new URLSearchParams(window.location.search);
-  const pump = params.get("pump") || "";
-  const ro = params.get("ro") || "";
+    const params = new URLSearchParams(window.location.search);
+    const pump = params.get("pump") || "";
+    const ro = params.get("ro") || "";
 
-  // Display for 3 seconds
-  document.getElementById("roNameDisplay").textContent = `Pump Name: ${ro}`;
+    document.getElementById("roNameDisplay").textContent = `Pump Name: ${ro}`;
 
-  // Construct pre-filled Google Form link
-  const formParams = new URLSearchParams();
-  formParams.set(entryPumpID, pump);
-  formParams.set(entryROName, ro);
-  const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
+    const formParams = new URLSearchParams();
+    formParams.set(entryPumpID, pump);
+    formParams.set(entryROName, ro);
+    const fullFormURL = `${baseGoogleFormURL}?${formParams.toString()}`;
 
-  // Redirect after 3 seconds
-  setTimeout(() => {
-    window.location.href = fullFormURL;
-  }, 3000);
-</script>
+    setTimeout(() => {
+      window.location.href = fullFormURL;
+    }, 3000);
+  </script>
 
 </body>
 </html>
