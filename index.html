@@ -9,64 +9,34 @@
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
       color: white;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      background-color: #101010;
       text-align: center;
-      position: relative;
-      overflow: hidden;
     }
 
-    /* Background Blurred Image */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('GDFF.jpg') no-repeat center center;
-      background-size: contain;
-      filter: blur(4px);
-      transform: scale(1.1);
-      z-index: -2;
-    }
-
-    /* Gradient overlay */
-    body::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: -1;
-    }
-
-    /* Top clear image section */
+    /* Clear banner image on top */
     .top-image {
       width: 100%;
       max-width: 800px;
       height: auto;
-      z-index: 1;
-      margin-top: 20px;
+      display: block;
+      margin: 30px auto 0;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .content-box {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
       border-radius: 20px;
       padding: 40px 50px;
       box-shadow: 0 0 25px rgba(0,0,0,0.3);
       max-width: 400px;
-      width: 90%;
-      animation: fadeIn 1s ease-out;
-      margin-top: 30px;
+      margin: 30px auto;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 10px 0;
     }
 
     h2 {
@@ -88,11 +58,11 @@
 </head>
 <body>
 
-  <!-- Sharp GDFF Image on Top -->
+  <!-- Sharp image on top -->
   <img src="GDFF.jpg" alt="Grand Dasara Banner" class="top-image">
 
   <div class="content-box">
-    <h1 style="margin: 10px 0; font-size: 2em;">🎉GRAND DASARA FUEL FESTIVAL🎊</h1>
+    <h1>🎉GRAND DASARA FUEL FESTIVAL🎊</h1>
     <h2 id="roNameDisplay">Pump Name: ...</h2>
     <p>Redirecting to form...</p>
   </div>
